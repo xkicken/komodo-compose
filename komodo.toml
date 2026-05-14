@@ -2,7 +2,7 @@
 name = "prowlarr"
 
 [stack.config]
-server = "local"
+server = "Local"
 repo = "xkicken/komodo-compose"
 branch = "main"
 compose_file_path = "stacks/prowlarr/compose.yaml"
