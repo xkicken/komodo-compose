@@ -3,7 +3,7 @@ git_provider = "github"
 git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
-server = "your-server-name"
+server = "Local"
 run_directory = "/opt/stacks"
 
 [[stack]]
