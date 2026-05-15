@@ -1,18 +1,9 @@
-[resource_defaults.stack]
-    git_provider = "github"
-    git_account = "xkicken"
-    repo = "xkicken/komodo-compose"
-    branch = "main"
-    server = "Local"
-    run_directory = "/opt/stacks"
-
 [[stack]]
 name = "prowlarr"
+
 [stack.config]
-    compose_file_path = "prowlarr/docker-compose.yml"
-    git_provider = "github"
-    git_account = "xkicken"
-    server = "Local"
-    repo = "xkicken/komodo-compose"
-    branch = "main"
-    run_directory = "/opt/stacks"
+server = "Local"
+repo = "xkicken/komodo-compose"
+branch = "main"
+compose_file_path = "prowlarr/docker-compose.yml"
+run_directory = "/opt/stacks"
