@@ -9,4 +9,4 @@ run_directory = "/opt/stacks"
 [[stack]]
 name = "prowlarr"
 [stack.config]
-    compose_file_path = "prowlarr/docker-compose.yml"
+compose_file_path = "prowlarr/docker-compose.yml"
