@@ -1,0 +1,15 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000 # Your user ID
+      - PGID=1000 # Your group ID
+      - TZ=Etc/UTC # Your timezone (e.g., America/New_York)
+    volumes:
+      - /path/to/sonarr/config:/config
+      - /path/to/tv/series:/tv
+      - /path/to/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
