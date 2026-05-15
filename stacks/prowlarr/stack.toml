@@ -1,0 +1,9 @@
+[[stack]]
+name = "prowlarr"
+
+[stack.config]
+server = "Local"
+repo = "xkicken/komodo-compose"
+branch = "main"
+compose_file_path = "compose.yml"
+run_directory = "/"
