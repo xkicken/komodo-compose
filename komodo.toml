@@ -5,5 +5,5 @@ name = "prowlarr"
 server = "Local"
 repo = "xkicken/komodo-compose"
 branch = "main"
-file_paths = ["compose.yaml"]
+compose_file_paths = "compose.yaml"
 run_directory = "/opt/stacks/prowlarr"
