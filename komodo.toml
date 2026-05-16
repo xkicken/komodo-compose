@@ -6,6 +6,7 @@ repo = "xkicken/komodo-compose"
 branch = "main"
 server = "Local"
 compose_file_path = "stacks/prowlarr/compose.yml"
+run_directory = "/opt/stacks/prowlarr"
 
 [[stack]]
 name = "sonarr"
@@ -15,3 +16,4 @@ repo = "xkicken/komodo-compose"
 branch = "main"
 server = "Local"
 compose_file_path = "stacks/sonarr/compose.yml"
+run_directory = "/opt/stacks/sonarr"
