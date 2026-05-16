@@ -1,17 +1,13 @@
-[resource_defaults.stack]
-repo = "xkicken/komodo-compose"
-branch = "main"
-server = "Local"
-run_directory = "/etc/komodo/stacks"
-
 [[stack]]
 name = "prowlarr"
 
 [stack.config]
+server = "Local"
 compose_file_path = "stacks/prowlarr/compose.yml"
 
 [[stack]]
 name = "sonarr"
 
 [stack.config]
+server = "Local"
 compose_file_path = "stacks/sonarr/compose.yml"
