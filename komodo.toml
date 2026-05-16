@@ -1,5 +1,7 @@
 [[stack]]
-name = "prowlarr"
+name = "arr-stack"
+description = "Sonarr, Radarr, Prowlarr, qBittorrent behind Gluetun VPN"
+tags = ["media", "arr", "vpn"]
 
 [stack.config]
 server = "Local"
@@ -7,15 +9,5 @@ git_provider = "github.com"
 git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
-file_paths = ["compose-file/prowlarr/compose.yaml"]
-
-[[stack]]
-name = "sonarr"
-
-[stack.config]
-server = "Local"
-git_provider = "github.com"
-git_account = "xkicken"
-repo = "xkicken/komodo-compose"
-branch = "main"
-file_paths = ["compose-file/sonarr/compose.yaml"]
+file_paths = ["compose-file/media/compose.yaml"]
+env_file_path = ["compose-file/media/.env"]

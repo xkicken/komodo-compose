@@ -1,0 +1,120 @@
+---
+services:
+
+  # ─────────────────────────────────────────────
+  # Gluetun — VPN gateway (all torrent traffic routes through this)
+  # ─────────────────────────────────────────────
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      # qBittorrent WebUI — exposed via Gluetun's network
+      - 8080:8080
+      # qBittorrent torrent port
+      - 6881:6881
+      - 6881:6881/udp
+      # Prowlarr WebUI — exposed via Gluetun's network
+      - 9696:9696
+    volumes:
+      - ./gluetun:/gluetun
+    environment:
+      # ── Change these to match your VPN provider ──
+      - VPN_SERVICE_PROVIDER=mullvad          # e.g. mullvad, nordvpn, expressvpn, protonvpn, custom
+      - VPN_TYPE=wireguard                    # wireguard or openvpn
+      # Mullvad-specific (remove/replace for other providers):
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      - SERVER_COUNTRIES=${VPN_COUNTRY:-Netherlands}
+      # Uncomment below for OpenVPN providers instead:
+      # - OPENVPN_USER=${VPN_USER}
+      # - OPENVPN_PASSWORD=${VPN_PASSWORD}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─────────────────────────────────────────────
+  # qBittorrent — torrent client (runs inside Gluetun's VPN network)
+  # ─────────────────────────────────────────────
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:gluetun"           # All traffic routed through VPN
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Pacific/Auckland}
+      - WEBUI_PORT=8080
+    volumes:
+      - ./qbittorrent/config:/config
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────
+  # Prowlarr — indexer manager (runs inside Gluetun's VPN network)
+  # ─────────────────────────────────────────────
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: "service:gluetun"           # All indexer traffic routed through VPN
+    depends_on:
+      gluetun:
+        condition: service_healthy
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Pacific/Auckland}
+    volumes:
+      - ./prowlarr/config:/config
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────
+  # Sonarr — TV show manager
+  # ─────────────────────────────────────────────
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Pacific/Auckland}
+    volumes:
+      - ./sonarr/config:/config
+      - ${TV_PATH:-./media/tv}:/tv
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
+    ports:
+      - 8989:8989
+    depends_on:
+      - prowlarr
+      - qbittorrent
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────
+  # Radarr — movie manager
+  # ─────────────────────────────────────────────
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-Pacific/Auckland}
+    volumes:
+      - ./radarr/config:/config
+      - ${MOVIES_PATH:-./media/movies}:/movies
+      - ${DOWNLOADS_PATH:-./downloads}:/downloads
+    ports:
+      - 7878:7878
+    depends_on:
+      - prowlarr
+      - qbittorrent
+    restart: unless-stopped
