@@ -3,9 +3,10 @@ name = "prowlarr"
 
 [stack.config]
 server = "Local"
+git_provider = "github"
 repo = "xkicken/komodo-compose"
 branch = "main"
-compose_file_path = "compose-file/prowlarr/compose.yaml"
+file_paths = ["compose-file/prowlarr/compose.yaml"]
 
 [[stack]]
 name = "sonarr"
