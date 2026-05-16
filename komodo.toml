@@ -5,7 +5,7 @@ name = "prowlarr"
 server = "Local"
 repo = "xkicken/komodo-compose"
 branch = "main"
-compose_file_paths = ["compose-file/prowlarr/compose.yaml"]
+compose_file_path = "compose-file/prowlarr/compose.yaml"
 
 [[stack]]
 name = "sonarr"
@@ -14,4 +14,4 @@ name = "sonarr"
 server = "Local"
 repo = "xkicken/komodo-compose"
 branch = "main"
-compose_file_paths = ["compose-file/sonarr/compose.yaml"]
+compose_file_path = "compose-file/sonarr/compose.yaml"
