@@ -3,7 +3,6 @@ name = "prowlarr"
 
 [stack.config]
 server = "Local"
-git_provider = "github"
 repo = "xkicken/komodo-compose"
 branch = "main"
 file_paths = ["compose-file/prowlarr/compose.yaml"]
