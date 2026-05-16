@@ -18,4 +18,4 @@ git_provider = "github.com"
 git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
-compose_file_path = "compose-file/sonarr/compose.yaml"
+file_paths = ["compose-file/sonarr/compose.yaml"]
