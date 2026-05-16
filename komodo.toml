@@ -10,4 +10,4 @@ git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
 file_paths = ["compose-file/arr/compose.yaml"]
-env_file_path = ["compose-file/arr/.env"]
+env_file_path = "compose-file/arr/.env"
