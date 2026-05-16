@@ -3,6 +3,8 @@ name = "prowlarr"
 
 [stack.config]
 server = "Local"
+git_provider = "github.com"
+git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
 file_paths = ["compose-file/prowlarr/compose.yaml"]
@@ -12,6 +14,8 @@ name = "sonarr"
 
 [stack.config]
 server = "Local"
+git_provider = "github.com"
+git_account = "xkicken"
 repo = "xkicken/komodo-compose"
 branch = "main"
 compose_file_path = "compose-file/sonarr/compose.yaml"
