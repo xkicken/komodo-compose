@@ -67,6 +67,7 @@ services:
     volumes:
       - ${APPDATA}/qbit/config:/config
       - ${MEDIA}:/media
+      - ${PRIVATE}:/private
     restart: unless-stopped
 
 
@@ -101,6 +102,7 @@ services:
     volumes:
       - ${APPDATA}/sonarr/config:/config
       - ${MEDIA}:/media
+      - ${PRIVATE}:/private
     ports:
       - 8989:8989
     depends_on:
@@ -121,6 +123,7 @@ services:
     volumes:
       - ${APPDATA}/radarr/config:/config
       - ${MEDIA}:/media
+      - ${PRIVATE}:/private
     ports:
       - 7878:7878
     depends_on:
