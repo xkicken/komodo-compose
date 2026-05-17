@@ -67,7 +67,7 @@ services:
     volumes:
       - ${APPDATA}/qbit/config:/config
       - ${MEDIA}:/media
-      - ${PRIVATE}:/private
+      - ${PRIVATE}/download:/privatedownload
     restart: unless-stopped
 
 
