@@ -6,7 +6,7 @@ services:
   # Pinned to v3.39.0 — v3.40+ has ProtonVPN issues
   # ─────────────────────────────────────────────
   gluetun:
-    image: qmcgaw/gluetun:v3.39.0
+    image: qmcgaw/gluetun:latest
     container_name: gluetun
     restart: always
     stdin_open: true
