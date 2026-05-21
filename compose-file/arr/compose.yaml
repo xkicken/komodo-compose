@@ -31,7 +31,7 @@ services:
       - PORT_FORWARD_ONLY=on
       - VPN_PORT_FORWARDING_PROVIDER=protonvpn
       - VPN_PORT_FORWARDING_STATUS_FILE=/gluetun/forwarded_port
-      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'echo "Updating qBittorrent port to {{PORT}}" > /proc/1/fd/1 2>&1 && sleep 10 && wget -O- -nv --retry-connrefused --tries=10 --waitretry=5 --post-data "json={\"listen_port\":{{PORT}}}" http://127.0.0.1:8080/api/v2/app/setPreferences'
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'echo "Updating qBittorrent port to {{PORT}}" > /proc/1/fd/1 2>&1 && sleep 30 && wget -O- -nv --retry-connrefused --tries=10 --waitretry=5 --post-data "json={\"listen_port\":{{PORT}}}" http://127.0.0.1:8080/api/v2/app/setPreferences'
       - VPN_PORT_FORWARDING_DOWN_COMMAND=/bin/sh -c 'echo "Clearing qBittorrent port" > /proc/1/fd/1 2>&1 && wget -O- -nv --retry-connrefused --post-data "json={\"listen_port\":0}" http://127.0.0.1:8080/api/v2/app/setPreferences'      
       - WIREGUARD_PRIVATE_KEY=${WG_PRIVATE_KEY}
       - SERVER_COUNTRIES=New Zealand
@@ -42,6 +42,7 @@ services:
       - LOG_LEVEL=info
       - SERVER_FEATURES=p2p
       - DNS_UPSTREAM_RESOLVERS=cloudflare
+      - DNS_KEEP_NAMESERVER=on
     healthcheck:
       test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
       interval: 30s
