@@ -70,25 +70,6 @@ services:
       - ${PRIVATE}/download:/privatedownload
     restart: unless-stopped
 
-
-  # ─────────────────────────────────────────────
-  # Prowlarr — indexer manager (VPN network only)
-  # ─────────────────────────────────────────────
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
-    network_mode: "service:gluetun"
-    depends_on:
-      gluetun:
-        condition: service_healthy
-    environment:
-      - PUID=${PUID:-1000}
-      - PGID=${PGID:-1000}
-      - TZ=${TZ:-UTC}
-    volumes:
-      - ${APPDATA}/prowlarr/config:/config
-    restart: unless-stopped
-
   # ─────────────────────────────────────────────
   # Sonarr — TV show manager
   # ─────────────────────────────────────────────
@@ -106,7 +87,6 @@ services:
     ports:
       - 8989:8989
     depends_on:
-      - prowlarr
       - qbittorrent
     restart: unless-stopped
 
@@ -127,7 +107,6 @@ services:
     ports:
       - 7878:7878
     depends_on:
-      - prowlarr
       - qbittorrent
     restart: unless-stopped
 
