@@ -38,10 +38,10 @@ services:
       - TZ=${TZ:-UTC}
       - UPDATER_PERIOD=24h
       - FIREWALL_OUTBOUND_SUBNETS=${FIREWALL_OUTBOUND_SUBNETS:-192.168.1.0/24,10.0.0.0/16,172.21.0.0/16}
-      - DOT_PROVIDERS=cloudflare,google
       - PUBLICIP_API=ip2location
       - LOG_LEVEL=info
       - SERVER_FEATURES=p2p
+      - DNS_UPSTREAM_RESOLVERS=cloudflare
     healthcheck:
       test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
       interval: 30s
