@@ -26,7 +26,7 @@ services:
       - ${APPDATA}/gluetun/:/gluetun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=wireguard
+      - VPN_TYPE=openvpn
       - VPN_PORT_FORWARDING=on
       - PORT_FORWARD_ONLY=on
       - VPN_PORT_FORWARDING_PROVIDER=protonvpn
@@ -43,6 +43,8 @@ services:
       - SERVER_FEATURES=p2p
       - DNS_UPSTREAM_RESOLVERS=cloudflare
       - DNS_KEEP_NAMESERVER=on
+      - OPENVPN_USER=${PROTON_OPENVPN_USER}
+      - OPENVPN_PASSWORD=${PROTON_OPENVPN_PASSWORD}
     healthcheck:
       test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
       interval: 30s
