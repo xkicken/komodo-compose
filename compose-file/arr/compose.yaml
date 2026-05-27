@@ -51,7 +51,7 @@ services:
   # qBittorrent — torrent client (VPN network only)
   # ─────────────────────────────────────────────
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:libtorrentv1
     container_name: gt-qb
     network_mode: "service:gluetun"
     depends_on:
