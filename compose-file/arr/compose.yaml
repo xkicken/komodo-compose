@@ -25,7 +25,7 @@ services:
       - ${APPDATA}/gluetun/:/gluetun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=openvpn
+      - VPN_TYPE=Wireguard
       - VPN_PORT_FORWARDING=on
       - PORT_FORWARD_ONLY=true
       - VPN_PORT_FORWARDING_PROVIDER=protonvpn
