@@ -18,9 +18,6 @@ services:
     ports:
       - 8778:8888/tcp  # HTTP proxy
       - 8001:8000/tcp  # Gluetun control server
-      - 8080:8080      # qBittorrent WebUI
-      - 6881:6881      # qBittorrent torrent
-      - 6881:6881/udp  # qBittorrent torrent
     volumes:
       - ${APPDATA}/gluetun/:/gluetun
     environment:
@@ -51,7 +48,7 @@ services:
   # qBittorrent — torrent client (VPN network only)
   # ─────────────────────────────────────────────
   qbittorrent:
-    image: lscr.io/linuxserver/qbittorrent:libtorrentv1
+    image: 
     container_name: gt-qb
     environment:
       - PUID=${PUID:-1000}
@@ -62,6 +59,11 @@ services:
       - ${APPDATA}/qbit/config:/config
       - ${MEDIA}:/media
       - ${PRIVATE}/download:/privatedownload
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+
     restart: unless-stopped
 
   # ─────────────────────────────────────────────
