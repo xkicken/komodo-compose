@@ -24,7 +24,7 @@ services:
     volumes:
       - ${APPDATA}/gluetun/:/gluetun
     environment:
-      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_SERVICE_PROVIDER=none
       - VPN_TYPE=wireguard
       - VPN_PORT_FORWARDING=on
       - PORT_FORWARD_ONLY=true
