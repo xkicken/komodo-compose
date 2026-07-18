@@ -1,10 +1,5 @@
 ---
 services:
-
-  # ─────────────────────────────────────────────
-  # Gluetun — VPN gateway
-  # Pinned to v3.39.0 — v3.40+ has ProtonVPN issues
-  # ─────────────────────────────────────────────
   gluetun:
     image: qmcgaw/gluetun:latest
     container_name: gluetun
@@ -24,23 +19,18 @@ services:
     volumes:
       - ${APPDATA}/gluetun/:/gluetun
     environment:
-      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_SERVICE_PROVIDER=airvpn
       - VPN_TYPE=wireguard
-      - VPN_PORT_FORWARDING=on
-      - PORT_FORWARD_ONLY=true
-      - VPN_PORT_FORWARDING_PROVIDER=protonvpn
-      - VPN_PORT_FORWARDING_STATUS_FILE=/gluetun/forwarded_port
-      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8080/api/v2/app/setPreferences 2>&1'
       - WIREGUARD_PRIVATE_KEY=${WG_PRIVATE_KEY}
+      - WIREGUARD_PRESHARED_KEY=${WG_PRESHARED_KEY}
+      - WIREGUARD_ADDRESSES=${WG_ADDRESSES}
       - SERVER_COUNTRIES=New Zealand
+      - FIREWALL_VPN_INPUT_PORTS=${AIRVPN_FORWARDED_PORT}
       - TZ=${TZ:-UTC}
       - UPDATER_PERIOD=24h
       - FIREWALL_OUTBOUND_SUBNETS=${FIREWALL_OUTBOUND_SUBNETS:-192.168.1.0/24,10.0.0.0/16,172.21.0.0/16}
       - PUBLICIP_API=ip2location
       - LOG_LEVEL=info
-      - SERVER_FEATURES=p2p
-      - OPENVPN_USER=${PROTON_OPENVPN_USER}
-      - OPENVPN_PASSWORD=${PROTON_OPENVPN_PASSWORD}
     healthcheck:
       test: ["CMD", "/gluetun-entrypoint", "healthcheck"]
       interval: 30s
